@@ -31,6 +31,10 @@ const moduleA = {
       getapi({ pid: 0 }).then(res => {
         state.data = res.data.data
       })
+    },
+    del3(state, payload) {
+      state.data.splice(payload.index, 1, state.data[payload.index].cid)
+      console.log(state.data)
     }
   },
   getters: {
@@ -48,6 +52,9 @@ const moduleA = {
       }, 1000)
     },
     del2(context) {
+      context.commit('del1')
+    },
+    huifu(context) {
       context.commit('del1')
     }
   }

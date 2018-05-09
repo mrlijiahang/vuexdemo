@@ -6,8 +6,10 @@
     <button @click="add">+</button>
     <button @click="del">-</button>
     <button @click="get">*</button>
-    <div style="border:1px solid black" v-for="item in this.mapdo1" :key=item.id >{{item}}</div>
-
+    <div style="border:1px solid black" v-for="(item, index) in this.mapdo1" :key=item.id >{{item}} 
+      <button @click="$store.commit('del3',{index:index})">del</button>
+      <button @click="$store.dispatch('huifu')" >恢复</button>
+    </div>
   </div>
 </template>
 <script>
@@ -45,8 +47,6 @@ export default {
       this.$store.commit('addB')
     },
     del() {
-      // this.mapdel({ delnum: 0.1 })
-      
     },
     get() {
       console.log(this.mapdo)
