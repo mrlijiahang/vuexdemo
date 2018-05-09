@@ -1,5 +1,6 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import { getapi } from '../api/test.js'
 
 Vue.use(Vuex)
 const moduleB = {
@@ -16,6 +17,7 @@ const moduleB = {
 const moduleA = {
   state: {
     count: 10,
+    data: '',
     texta: {
       id: 1,
       desc: '...'
@@ -24,11 +26,19 @@ const moduleA = {
   mutations: {
     add(state, payload) {
       state.count = state.count + payload.num
+    },
+    del1(state) {
+      getapi({ pid: 0 }).then(res => {
+        state.data = res.data.data
+      })
     }
   },
   getters: {
     do: state => {
       return state.texta.id
+    },
+    do1: state => {
+      return state.data
     }
   },
   actions: {
@@ -36,6 +46,9 @@ const moduleA = {
       setInterval(() => {
         context.state.count = context.state.count - payload.delnum
       }, 1000)
+    },
+    del2(context) {
+      context.commit('del1')
     }
   }
 }
