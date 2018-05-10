@@ -33,7 +33,7 @@ const moduleA = {
       })
     },
     del3(state, payload) {
-      state.data.splice(payload.index, 1, state.data[payload.index].cid)
+      state.data.splice(payload.index, 1)
       console.log(state.data)
     }
   },
