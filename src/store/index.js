@@ -15,8 +15,9 @@ const moduleB = {
 }
 
 const moduleA = {
+  // a作用于state
   state: {
-    count: 10,
+    count: 100,
     data: '',
     texta: {
       id: 1,
@@ -24,9 +25,11 @@ const moduleA = {
     }
   },
   mutations: {
+    // a作用域的数字加
     add(state, payload) {
       state.count = state.count + payload.num
     },
+
     del1(state) {
       getapi({ pid: 0 }).then(res => {
         state.data = res.data.data
@@ -38,22 +41,26 @@ const moduleA = {
     }
   },
   getters: {
-    do: state => {
-      return state.texta.id
+    // ab作用域相加
+    do: (state, getters, rootState) => {
+      return state.count + rootState.b.Bcount
     },
     do1: state => {
       return state.data
     }
   },
   actions: {
-    del(context, payload) {
-      setInterval(() => {
-        context.state.count = context.state.count - payload.delnum
-      }, 1000)
+    del(context, rootState) {
+      console.log(rootState)
+      // context.state.count =
+      //   context.state.count - payload.delnum - rootState.b.Bcount
     },
+
+    // del2 dispatch del1
     del2(context) {
       context.commit('del1')
     },
+    // 调用del1 请求接口
     huifu(context) {
       context.commit('del1')
     }
